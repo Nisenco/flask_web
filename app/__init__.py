@@ -18,18 +18,20 @@ db = SQLAlchemy(app)
 # 迁移数据库
 migrate = Migrate(app, db)
 
-
 # 加载插件
 bootstrap = Bootstrap(app)
 mail = Mail(app)
 moment = Moment(app)
 
 # 添加 蓝图
-from app.auth import bp as auth_bp
+# from app.auth import bp as auth_bp
 from app.notes import bp as notes_bp
+from app.bluelog import blog_bp, auth_bp, admin_bp
 
-app.register_blueprint(auth_bp, url_prefix='/auth')
+# app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(notes_bp, url_prefix='/notes')
-
+app.register_blueprint(blog_bp, url_prefix='/blog')
+app.register_blueprint(auth_bp, url_prefix='/auth')
+app.register_blueprint(admin_bp, url_prefix='/admin')
 
 from app import models
