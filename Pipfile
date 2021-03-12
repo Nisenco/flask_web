@@ -16,6 +16,7 @@ flask-mail = "*"
 flask-moment = "*"
 pymysql = "*"
 bootstrap-flask = "*"
+flask-babel = "*"
 
 [dev-packages]
 watchdog = "*"
