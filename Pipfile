@@ -19,6 +19,7 @@ bootstrap-flask = "*"
 
 [dev-packages]
 watchdog = "*"
+faker = "*"
 
 [requires]
 python_version = "3.7"

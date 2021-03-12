@@ -5,7 +5,7 @@ from app.notes.model import Message
 from app.notes import bp as notes_bp
 
 
-@notes_bp.route('/notes', methods=['GET', 'POST'])
+@notes_bp.route('/', methods=['GET', 'POST'])
 def notes_index():
     # 加载所有记录
     messages = Message.query.order_by(Message.timestamp.desc()).all()
@@ -17,5 +17,5 @@ def notes_index():
         db.session.add(message)
         db.session.commit()
         flash('your message have been sent')
-        return redirect(url_for('notes_bp.notes_index'))
+        return redirect(url_for('notes.notes_index'))
     return render_template('notes/index.html', form=notesForm, messages=messages)

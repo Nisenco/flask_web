@@ -3,7 +3,7 @@ from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from app import db
+from app import db,login_manager
 
 
 class Admin(db.Model, UserMixin):
@@ -77,3 +77,10 @@ class Link(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30))
     url = db.Column(db.String(255))
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    user = Admin.query.get(int(user_id))
+    return user
+

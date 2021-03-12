@@ -1,12 +1,18 @@
 from flask import redirect, url_for, render_template, flash
 from app.bluelog import auth_bp, blog_bp, admin_bp
 from flask_login import login_user, logout_user, login_required, current_user
+from app.bluelog.model import Post
 
 
 # blog 路由
 @blog_bp.route('/')
 def index():
-    return render_template('blog/index.html')
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    results = []
+    for i in posts:
+        if i.category and i.category.id:
+            results.append(i)
+    return render_template('blog/index.html', pagination=1, posts=results)
 
 
 @blog_bp.route('/about')

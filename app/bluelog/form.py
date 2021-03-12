@@ -14,6 +14,14 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign in')
 
 
+class SettingForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired(), Length(1, 30)])
+    blog_title = StringField('Blog Title', validators=[DataRequired(), Length(1, 60)])
+    blog_sub_title = StringField('Blog Sub Title', validators=[DataRequired(), Length(1, 100)])
+    about = CKEditorField('About Page', validators=[DataRequired()])
+    submit = SubmitField()
+
+
 # 文章表单
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(1, 60)])
