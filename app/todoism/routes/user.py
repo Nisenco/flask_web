@@ -9,11 +9,11 @@ user_bp = Blueprint('user', __name__)
 fake = Faker()
 
 
-@user_bp.route('/login', methods=['GET', 'POST'])
-def login():
+@user_bp.route('/todo_login', methods=['GET', 'POST'])
+def todo_login():
     print('00000000')
     if current_user.is_authenticated:
-        return redirect(url_for('todo.app'))
+        return redirect(url_for('todo.todo_app'))
     if request.method == 'POST':
         data = request.get_json()
         username = data['username']
@@ -26,15 +26,15 @@ def login():
     return render_template('todoism/_login.html')
 
 
-@user_bp.route('/logout')
+@user_bp.route('/todo_logout')
 @login_required
-def logout():
+def todo_logout():
     logout_user()
     return jsonify(message=_('Logout success.'))
 
 
-@user_bp.route('/register')
-def register():
+@user_bp.route('/todo_register')
+def todo_register():
     # generate a random account for demo use
     username = fake.user_name()
     # make sure the generated username was not in database

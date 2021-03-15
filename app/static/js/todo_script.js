@@ -15,7 +15,7 @@ $(document).ready(function () {
             catch (err) {
                 IS_JSON = false;
             }
-
+            console.log(JSON,'->json',data,'<=data');
             if (IS_JSON && data !== undefined && data.hasOwnProperty('message')) {
                 message = JSON.parse(request.responseText).message;
             } else {
@@ -39,10 +39,12 @@ $(document).ready(function () {
         // Some browers return the hash symbol, and some don't.
         var hash = window.location.hash.replace('#', '');
         var url = null;
-        if (hash === 'login') {
-            url = login_page_url
-        } else if (hash === 'app') {
-            url = app_page_url
+        console.log(hash,'hash--+++');
+        if (hash == 'login') {
+            console.log('999# login')
+            url = login_page_url;
+        } else if (hash == 'todo_app') {
+            url = app_page_url;
         } else {
             url = intro_page_url
         }
@@ -315,11 +317,12 @@ $(document).ready(function () {
             data: JSON.stringify(data),
             contentType: 'application/json;charset=UTF-8',
             success: function (data) {
-                if (window.location.hash === '#app' || window.location.hash === 'app') {
+                if (window.location.hash === '#todo_app' || window.location.hash === 'todo_app') {
                     $(window).trigger('hashchange');
                 } else {
-                    window.location.hash = '#app';
+                    window.location.hash = '#todo_app';
                 }
+                console.log(window.location.hash,'<=====window.location.hash');
                 activeM();
                 M.toast({html: data.message});
             }

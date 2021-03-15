@@ -16,15 +16,14 @@
 <script src="{{ url_for('static', filename='js/todo_script.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
     var csrf_token = "{{ csrf_token() }}";
-    var login_page_url = "{{ url_for('user.login') }}";
-    var app_page_url = "{{ url_for('todo.app') }}";
+    var login_page_url = "{{ url_for('user.todo_login') }}";
+    var app_page_url = "{{ url_for('todo.todo_app') }}";
     var intro_page_url = "{{ url_for('home.intro') }}";
     var new_item_url = "{{ url_for('todo.new_item') }}";
     var clear_item_url = "{{ url_for('todo.clear_items') }}";
-    var login_url = "{{ url_for('user.login') }}";
-    console.log(login_url,'0-----login_url')
-    var register_url = "{{ url_for('user.register') }}";
-    var logout_url = "{{ url_for('user.logout') }}";
+    var login_url = "{{ url_for('user.todo_login') }}";
+    var register_url = "{{ url_for('user.todo_register') }}";
+    var logout_url = "{{ url_for('user.todo_logout') }}";
     var default_error_message = "{{ _('Oops, something was wrong!') }}";
     var empty_body_error_message = "{{ _('Your todo was empty!') }}";
     var login_error_message = "{{ _('Empty username or password!') }}";

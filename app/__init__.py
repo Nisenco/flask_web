@@ -8,7 +8,7 @@ from flask_moment import Moment
 from flask_login import LoginManager, current_user
 from flask_ckeditor import CKEditor
 from flask_wtf import CSRFProtect
-from flask_babel import _,Babel
+from flask_babel import _, Babel
 
 app = Flask(__name__)
 # 需要先添加数据库的配置项 然后添加数据库 先后顺序不能弄反
@@ -23,7 +23,7 @@ migrate = Migrate(app, db)
 
 # 加载插件
 login_manager = LoginManager(app)
-login_manager.login_view = 'auth.login'
+# login_manager.login_view = 'auth.login'
 bootstrap = Bootstrap(app)
 mail = Mail(app)
 moment = Moment(app)
@@ -49,12 +49,13 @@ app.register_blueprint(notes_bp, url_prefix='/notes')
 app.register_blueprint(blog_bp)
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(admin_bp, url_prefix='/admin')
-app.register_blueprint(user_bp,url_prefix='/user')
+app.register_blueprint(user_bp, url_prefix='/user')
 app.register_blueprint(todo_bp)
-app.register_blueprint(home_bp,url_prefix='/home')
+app.register_blueprint(home_bp, url_prefix='/home')
 
 # from app import models
-from app.models import Admin, Category, Link, Comment
+from app.models import Admin, Category, Link, Comment, Item
+
 
 def register_template_context(app):
     @app.context_processor
@@ -70,4 +71,16 @@ def register_template_context(app):
             admin=admin, categories=categories,
             links=links, unread_comments=unread_comments)
 
+
+# def register_template_todo_context(app):
+#     @app.context_processor
+#     def make_template_context():
+#         if current_user.is_authenticated:
+#             active_items = Item.query.with_parent(current_user).filter_by(done=False).count()
+#         else:
+#             active_items = None
+#         return dict(active_items=active_items)
+
+
 register_template_context(app)
+# register_template_todo_context(app)

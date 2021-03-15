@@ -1,4 +1,3 @@
-from faker import Faker
 from flask import render_template, redirect, url_for, Blueprint, request, jsonify
 from flask_babel import _
 from flask_login import login_user, logout_user, login_required, current_user
@@ -8,10 +7,15 @@ from app.todoism.model import User, Item
 todo_bp = Blueprint('todo', __name__)
 
 
-@todo_bp.route('/app')
+@todo_bp.route('/todo_app')
 @login_required
-def app():
-    return 'app'
+def todo_app():
+    print('current-user--->', current_user)
+    all_count = Item.query.with_parent(current_user).count()
+    active_count = Item.query.with_parent(current_user).filter_by(done=False).count()
+    completed_count = Item.query.with_parent(current_user).filter_by(done=True).count()
+    return render_template('todoism/_app.html', items=current_user.items,
+                           all_count=all_count, active_count=active_count, completed_count=completed_count)
 
 
 @todo_bp.route('/items/new', methods=['POST'])
@@ -34,3 +38,42 @@ def clear_items():
         db.session.delete(item)
     db.session.commit()
     return jsonify(message=_('All clear!'))
+
+
+@todo_bp.route('/item/<int:item_id>/edit', methods=['PUT'])
+@login_required
+def edit_item(item_id):
+    item = Item.query.get_or_404(item_id)
+    if current_user != item.author:
+        return jsonify(message=_('Permission denied.')), 403
+
+    data = request.get_json()
+    if data is None or data['body'].strip() == '':
+        return jsonify(message=_('Invalid item body.')), 400
+    item.body = data['body']
+    db.session.commit()
+    return jsonify(message=_('Item updated.'))
+
+
+@todo_bp.route('/item/<int:item_id>/toggle', methods=['PATCH'])
+@login_required
+def toggle_item(item_id):
+    item = Item.query.get_or_404(item_id)
+    if current_user != item.author:
+        return jsonify(message=_('Permission denied.')), 403
+
+    item.done = not item.done
+    db.session.commit()
+    return jsonify(message=_('Item toggled.'))
+
+
+@todo_bp.route('/item/<int:item_id>/delete', methods=['DELETE'])
+@login_required
+def delete_item(item_id):
+    item = Item.query.get_or_404(item_id)
+    if current_user != item.author:
+        return jsonify(message=_('Permission denied.')), 403
+
+    db.session.delete(item)
+    db.session.commit()
+    return jsonify(message=_('Item deleted.'))
