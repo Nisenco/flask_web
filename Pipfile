@@ -17,6 +17,7 @@ flask-moment = "*"
 pymysql = "*"
 bootstrap-flask = "*"
 flask-babel = "*"
+flask-cors = "*"
 
 [dev-packages]
 watchdog = "*"

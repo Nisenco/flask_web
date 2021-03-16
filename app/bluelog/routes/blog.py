@@ -1,9 +1,9 @@
-from flask import redirect, url_for, render_template, flash, Blueprint,request,current_app
-from flask_login import login_user, logout_user, login_required, current_user
-from app.bluelog.model import Post,Comment
-from app.bluelog.form import CommentForm,AdminCommentForm
+from flask import redirect, url_for, render_template, flash, Blueprint, request, current_app
+from flask_login import current_user
+from app.bluelog.model import Post, Comment
+from app.bluelog.form import CommentForm, AdminCommentForm
 from app import db
-from app.email import send_new_reply_email,send_new_comment_email
+# from app.email import send_new_reply_email, send_new_comment_email
 
 blog_bp = Blueprint('blog', __name__)
 
@@ -11,12 +11,6 @@ blog_bp = Blueprint('blog', __name__)
 # blog 路由
 @blog_bp.route('/')
 def index():
-    # posts = Post.query.order_by(Post.timestamp.desc()).all()
-    # results = []
-    # for i in posts:
-    #     if i.category and i.category.id:
-    #         results.append(i)
-    # return render_template('blog/index.html', pagination=1, posts=results)
     page = request.args.get('page', 1, type=int)
     per_page = current_app.config['BLUELOG_POST_PER_PAGE']
     pagination = Post.query.order_by(Post.timestamp.desc()).paginate(page, per_page=per_page)
@@ -26,6 +20,7 @@ def index():
         if i.category and i.category.id:
             results.append(i)
     return render_template('blog/index.html', pagination=pagination, posts=results)
+
 
 @blog_bp.route('/about')
 def about():

@@ -9,6 +9,7 @@ from flask_login import LoginManager, current_user
 from flask_ckeditor import CKEditor
 from flask_wtf import CSRFProtect
 from flask_babel import _, Babel
+from app.apis.v1 import api_v1
 
 app = Flask(__name__)
 # 需要先添加数据库的配置项 然后添加数据库 先后顺序不能弄反
@@ -52,8 +53,9 @@ app.register_blueprint(admin_bp, url_prefix='/admin')
 app.register_blueprint(user_bp, url_prefix='/user')
 app.register_blueprint(todo_bp)
 app.register_blueprint(home_bp, url_prefix='/home')
+# 注册 api 接口
+app.register_blueprint(api_v1, url_prefix='/api/v1')
 
-# from app import models
 from app.models import Admin, Category, Link, Comment, Item
 
 
