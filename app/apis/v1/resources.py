@@ -35,6 +35,7 @@ class AuthTokenAPI(MethodView):
         grant_type = request.form.get('grant_type')
         username = request.form.get('username')
         password = request.form.get('password')
+        print('999999s=>>')
         if grant_type is None or grant_type.lower() != 'password':
             return api_abort(400, message='The grant type must be password.')
 
