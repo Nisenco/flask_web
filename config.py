@@ -13,6 +13,7 @@ class Config(object):
     BLUELOG_EMAIL = os.getenv('BLUELOG_EMAIL')
     # todolist 页数配置
     TODOISM_ITEM_PER_PAGE = 20
+    WTF_CSRF_ENABLED = False
     # 邮箱配置
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
     MAIL_PORT = int(os.environ.get('MAIL_PORT') or 25)
