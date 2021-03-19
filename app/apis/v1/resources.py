@@ -5,7 +5,7 @@ from app.models import User, Item
 from app.apis.v1.auth import generate_token, auth_required
 from app.apis.v1.schemas import user_schema, item_schema, items_schema
 from app.apis.v1 import api_v1
-from app import db
+from app.extensions import db
 
 
 def get_item_body():

@@ -2,7 +2,7 @@ import os
 import db_setting
 
 
-class Config(object):
+class BaseConfig(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     SQLALCHEMY_DATABASE_URI = db_setting.SQLALCHEMY_DATABASE_URI
     SQLALCHEMY_TRACK_MODIFICATIONS = db_setting.SQLALCHEMY_TRACK_MODIFICATIONS
@@ -22,9 +22,9 @@ class Config(object):
     MAIL_PASSWORD = os.environ.get('W2308090624M')
 
 
-class DevelopmentConfig(Config):
+class DevelopmentConfig(BaseConfig):
     pass
 
 
-class ProductionConfig(Config):
+class ProductionConfig(BaseConfig):
     pass

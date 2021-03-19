@@ -1,5 +1,5 @@
 from flask import flash, redirect, url_for, render_template
-from app import app, db
+from app.extensions import db
 from app.notes.forms import NotesForm
 from app.notes.model import Message
 from app.notes import bp as notes_bp
