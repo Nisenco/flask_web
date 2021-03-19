@@ -7,6 +7,8 @@ class BaseConfig(object):
     SQLALCHEMY_DATABASE_URI = db_setting.SQLALCHEMY_DATABASE_URI
     SQLALCHEMY_TRACK_MODIFICATIONS = db_setting.SQLALCHEMY_TRACK_MODIFICATIONS
     SECRET_KEY = os.getenv('SECRET_KEY', 'a secret string')
+    # 笔记评论页面 每页显示行数
+    NOTES_POST_PER_PAGE = 10
     # blog 每页显示条数
     BLUELOG_POST_PER_PAGE = 10
     BLUELOG_COMMENT_PER_PAGE = 15

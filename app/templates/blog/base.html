@@ -10,7 +10,9 @@
         <link rel="stylesheet"
               href="{{ url_for('static', filename='css/%s.min.css' % request.cookies.get('theme', 'perfect_blue')) }}"
               type="text/css">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css"></block>
+
+    {#<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">#}
     {% endblock head %}
 </head>
 <body>
