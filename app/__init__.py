@@ -13,11 +13,10 @@ from app.bluelog.routes.admin import admin_bp
 from app.bluelog.routes.auth import auth_bp
 from app.bluelog.routes.blog import blog_bp
 # todolist项目
-from app.todoism.routes.user import user_bp
-from app.todoism.routes.todo import todo_bp
-from app.todoism.routes.home import home_bp
+# from app.todoism.routes.user import user_bp
+# from app.todoism.routes.todo import todo_bp
+# from app.todoism.routes.home import home_bp
 from app.models import Admin, Category, Link, Comment, Item
-
 
 
 # 需要先添加数据库的配置项 然后添加数据库 先后顺序不能弄反
@@ -50,12 +49,12 @@ def register_extensions(app):
 
 def register_buleprints(app):
     app.register_blueprint(notes_bp, url_prefix='/notes')
-    app.register_blueprint(blog_bp)
+    app.register_blueprint(blog_bp,url_prefix='/blog')
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(admin_bp, url_prefix='/admin')
-    app.register_blueprint(user_bp, url_prefix='/user')
-    app.register_blueprint(todo_bp)
-    app.register_blueprint(home_bp, url_prefix='/home')
+    # app.register_blueprint(user_bp, url_prefix='/user')
+    # app.register_blueprint(todo_bp)
+    # app.register_blueprint(home_bp, url_prefix='/home')
     app.register_blueprint(api_v1, url_prefix='/api/v1')
 
 
@@ -72,4 +71,3 @@ def register_template_context(app):
         return dict(
             admin=admin, categories=categories,
             links=links, unread_comments=unread_comments)
-
