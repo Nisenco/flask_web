@@ -78,9 +78,3 @@ class Link(db.Model):
     name = db.Column(db.String(30))
     url = db.Column(db.String(255))
 
-
-@login_manager.user_loader
-def load_user(user_id):
-    user = Admin.query.get(int(user_id))
-    return user
-

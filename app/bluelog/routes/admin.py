@@ -12,7 +12,7 @@ admin_bp = Blueprint('admin', __name__)
 @admin_bp.route('/')
 @login_required
 def index():
-    return '管理员首页'
+    return redirect(url_for('admin.settings'))
 
 
 @admin_bp.route('/settings', methods=['GET', 'POST'])

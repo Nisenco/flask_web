@@ -18,9 +18,9 @@ def login():
         password = form.password.data
         remember = form.remember.data
         admin = Admin.query.first()
-        print(admin, 'admin')
         print(username, 'username')
         print(password, 'password')
+        print(remember, 'remember')
         if admin:
             if username == admin.username and admin.validate_password(password):
                 login_user(admin, remember)

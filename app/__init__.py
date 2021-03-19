@@ -49,7 +49,7 @@ def register_extensions(app):
 
 def register_buleprints(app):
     app.register_blueprint(notes_bp, url_prefix='/notes')
-    app.register_blueprint(blog_bp,url_prefix='/blog')
+    app.register_blueprint(blog_bp)
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(admin_bp, url_prefix='/admin')
     # app.register_blueprint(user_bp, url_prefix='/user')
@@ -71,3 +71,10 @@ def register_template_context(app):
         return dict(
             admin=admin, categories=categories,
             links=links, unread_comments=unread_comments)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    from app.models import Admin
+    user = Admin.query.get(int(user_id))
+    return user
