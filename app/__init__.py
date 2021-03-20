@@ -16,7 +16,7 @@ from app.bluelog.routes.blog import blog_bp
 # from app.todoism.routes.user import user_bp
 # from app.todoism.routes.todo import todo_bp
 # from app.todoism.routes.home import home_bp
-from app.models import Admin, Category, Link, Comment, Item
+from app.models import Admin, Category, Link, Comment, Item, Message, User, Item
 
 
 # 需要先添加数据库的配置项 然后添加数据库 先后顺序不能弄反
@@ -32,7 +32,6 @@ def create_app():
 def register_extensions(app):
     # 添加数据库
     db.init_app(app)
-
     # 迁移数据库
     migrate.init_app(app, db)
 
