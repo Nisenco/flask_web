@@ -18,7 +18,7 @@ def login():
         username = form.username.data
         password = form.password.data
         remember = form.remember.data
-        admin = Admin.query.first()
+        admin = Admin.query.filter_by(username=username).first()
         if admin:
             if username == admin.username and admin.validate_password(password):
                 login_user(admin, remember)
@@ -37,8 +37,8 @@ def register():
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
-        remember = form.remember.data
-        admin = Admin.query.first()
+        # remember = form.remember.data
+        admin = Admin.query.filter_by(username=username).first()
         if admin:
             flash('account is exist')
         else:
@@ -53,7 +53,7 @@ def register():
             db.session.add(register_admin)
             db.session.commit()
             flash("it's successful to register a account ", "info")
-        redirect(url_for('auth.login'))
+        return redirect(url_for('auth.login'))
     return render_template('auth/login.html', form=form)
 
 
